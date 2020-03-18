@@ -40,4 +40,13 @@ router.get('/config', function(req, res, next) {
 	return res.end();
 })
 
+router.get('/validate', function(req, res, next) {
+
+	res.json({
+		session: res.session,
+		body: req.body,
+		headers: req.headers
+	})
+})
+
 module.exports = router;
