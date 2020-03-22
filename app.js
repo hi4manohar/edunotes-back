@@ -6,6 +6,7 @@ var express = require('express')
 var cors = require('cors')
 var app = express()
 var port = 3000
+var bodyParser = require('body-parser');
 
 
 app.use(cors());
@@ -19,6 +20,8 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }));
+
+app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
     res.send('Hello World!')

@@ -17,7 +17,7 @@ router.get('/', async function(req, res, next) {
 		res.json({
 			status: false,
 			data: err
-		});		
+		});
 	}
 	res.end();
 })
