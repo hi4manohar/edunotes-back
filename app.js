@@ -5,7 +5,7 @@ var FileStore = require('session-file-store')(session);
 var express = require('express')
 var cors = require('cors')
 var app = express()
-var port = 3000
+const port = process.env.PORT || 3000;
 var bodyParser = require('body-parser');
 
 
