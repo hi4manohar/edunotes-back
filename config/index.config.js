@@ -1,5 +1,6 @@
 const mysql = require('mysql')
 const { connection } = require('./db.config')
+const { expressConfig } = require('./express.config')
 
 const dbinst = mysql.createConnection({
     host: connection.host,

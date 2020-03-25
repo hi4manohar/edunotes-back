@@ -1,30 +1,5 @@
 var routes = require('./routes/index.route');
-var session = require('express-session')
-var FileStore = require('session-file-store')(session);
-
-var express = require('express')
-var cors = require('cors')
-var app = express()
-const port = process.env.PORT || 3000;
-var bodyParser = require('body-parser');
-
-
-app.use(cors());
-
-//public files
-app.use("/uploads", express.static('uploads'));
-
-// Router
-
-//session
-app.use(session({
-    store: new FileStore,
-    secret: 'keyboard cat',
-    resave: true,
-    saveUninitialized: true
-}));
-
-app.use(bodyParser.json());
+var app = require('./config/express.config');
 
 app.get('/', (req, res) => {
     res.send('Hello World!')
@@ -32,6 +7,8 @@ app.get('/', (req, res) => {
 
 app.use('/api', routes);
 
-app.listen(port, () => console.log(`Listening on port ${port}!`));
+app.listen(app.get('port'), app.get('host'), () => {
+	console.log(`Server running at http://${app.get('host')}:${app.get('port')}`);
+});
 
 module.exports = app;
