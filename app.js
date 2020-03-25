@@ -11,6 +11,9 @@ var bodyParser = require('body-parser');
 
 app.use(cors());
 
+//public files
+app.use("/uploads", express.static('uploads'));
+
 // Router
 
 //session
