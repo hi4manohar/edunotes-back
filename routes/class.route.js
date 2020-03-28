@@ -22,16 +22,16 @@ router.get('/get', async function(req, res, next) {
 	res.end();
 })
 
-router.get('/get/:classname', async function(req, res, next) {
+router.get('/get/:subjectname', async function(req, res, next) {
 
 	let classObj = new classModel({dbinst});
 	let param = {};
-	param.classname = req.params.classname;
+	param.subjectname = req.params.subjectname;
 
-	if( param.classname ) {
+	if( param.subjectname ) {
 
 		try {
-		let articleData = await classObj.getArticleByClass(param);
+		let articleData = await classObj.getArticleBySubject(param);
 			res.status(200).json({
 				status: true,
 				data: articleData.data
