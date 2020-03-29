@@ -6,13 +6,11 @@ class classmodel {
 
 	getClassList() {
 		return new Promise((resolve, reject) => {
-			let sql = `SELECT *
-				FROM wp_term_relationships
-				LEFT JOIN wp_term_taxonomy
-				   ON (wp_term_relationships.term_taxonomy_id = wp_term_taxonomy.term_taxonomy_id)
-				LEFT JOIN wp_terms on wp_term_taxonomy.term_taxonomy_id = wp_terms.term_id
-				WHERE wp_term_taxonomy.taxonomy = 'category'
-				GROUP BY wp_term_taxonomy.term_id`;
+			let sql = `SELECT t.name, t.slug, t.term_id, tt.description 
+			FROM wp_term_taxonomy as tt INNER JOIN wp_terms as t 
+			on tt.term_id=t.term_id WHERE tt.parent IN (
+			    select term_id from wp_terms where wp_terms.slug='subjects'
+			)`;
 			this.dbinst.query(sql, function (err, result) {
 				if(err) {
 					reject({
@@ -26,11 +24,10 @@ class classmodel {
 					})
 				}
 			});
-		})		
+		})
 	}
 
 	getArticleBySubject(param) {
-		console.log('hi');
 		return new Promise((resolve, reject) => {
 			let sql = `SELECT wp_posts.*, p.guid FROM wp_posts 
 			LEFT JOIN wp_postmeta as pm ON 
@@ -41,9 +38,9 @@ class classmodel {
 			WHERE wp_posts.post_type="post" AND wp_posts.post_status = "publish" AND wp_posts.ID IN (
 			    SELECT object_id FROM wp_term_relationships WHERE term_taxonomy_id IN (
 			        SELECT term_taxonomy_id FROM wp_term_taxonomy WHERE taxonomy = "category" AND term_id IN (
-			            SELECT t.term_id FROM wp_terms t WHERE t.slug IN ("${param.subjectname}")
+			            SELECT t.term_id FROM wp_terms t WHERE t.slug IN ("tenth", "chapters", 'physics')
 			        )
-			    )
+			    ) GROUP by(object_id) having COUNT(object_id)=3
 			)
 			LIMIT 0, 20`;
 			this.dbinst.query(sql, function (err, result) {
