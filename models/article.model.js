@@ -4,7 +4,7 @@ class article {
 		this.dbinst = param.dbinst
 	}
 
-	getArticleList() {
+	getArticleList(param) {
 		return new Promise((resolve, reject) => {
 			let sql = `SELECT wp_posts.*, p.guid FROM wp_posts 
 			LEFT JOIN wp_postmeta as pm ON 
@@ -19,7 +19,7 @@ class article {
 			        )
 			    )
 			)
-			LIMIT 0, 20`;
+			LIMIT ${param.page}, ${param.offset}`;
 			this.dbinst.query(sql, function (err, result) {
 				if(err) {
 					reject({
