@@ -8,9 +8,9 @@ router.get('/getwelcome', async function(req, res, next) {
 	res.status(200).json({
 		status: true,
 		data: [
-			{ src: 'uploads/static/images/slider/welcome-slider1.jpg' },
-			{ src: 'uploads/static/images/slider/welcome-slider2.jpg' },
-			{ src: 'uploads/static/images/slider/welcome-slider3.jpg' }
+			{ src: 'uploads/static/images/slider1.jpg' },
+			{ src: 'uploads/static/images/slider1.jpg' },
+			{ src: 'uploads/static/images/slider1.jpg' }
 		]
 	});
 
@@ -27,8 +27,6 @@ router.get('/getboardlist', async function(req, res, next) {
 		console.log(boardData.data.length);
 
 		if( boardData.data.length > 0 ) {
-
-			console.log('hi');
 
 			res.status(200).json({
 				status: true,
