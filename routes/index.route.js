@@ -12,7 +12,7 @@ router.use('/auth', authRoutes);
 router.use('/start', startRoutes);
 router.use('/article-list', isAuthenticated, articleRoutes);
 router.use('/enc', isAuthenticated, articleRoutes);
-router.use('/class', classRoutes);
-router.use('/books', BooksRoutes);
+router.use('/class', isAuthenticated, classRoutes);
+router.use('/books', isAuthenticated, BooksRoutes);
 
 module.exports = router;

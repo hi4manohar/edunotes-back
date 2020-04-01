@@ -4,7 +4,7 @@ class books {
 		this.dbinst = param.dbinst
 	}
 
-	getBooksList() {
+	getBooksList(param) {
 		return new Promise((resolve, reject) => {
 			let sql = `SELECT wp_posts.*, p.guid FROM wp_posts 
 			LEFT JOIN wp_postmeta as pm ON 
@@ -15,20 +15,20 @@ class books {
 			WHERE wp_posts.post_type="post" AND wp_posts.post_status = "publish" AND wp_posts.ID IN (
 			    SELECT object_id FROM wp_term_relationships WHERE term_taxonomy_id IN (
 			        SELECT term_taxonomy_id FROM wp_term_taxonomy WHERE taxonomy = "category" AND term_id IN (
-			            SELECT t.term_id FROM wp_terms t WHERE t.slug IN ("tenth", "books")
+			            SELECT t.term_id FROM wp_terms t WHERE t.slug IN ("${param.class}", "books", "${param.board}")
 			        )
-			    ) GROUP by(object_id) having COUNT(object_id)=2
+			    ) GROUP by(object_id) having COUNT(object_id)=3
 			)
 			LIMIT 0, 20`;
 			this.dbinst.query(sql, function (err, result) {
 				if(err) {
 					reject({
-						status: true,
+						status: false,
 						msg: err
 					})
 				} else {
 					resolve({
-						status: false,
+						status: true,
 						data: result
 					})
 				}
