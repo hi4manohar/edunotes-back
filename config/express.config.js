@@ -5,7 +5,7 @@ var bodyParser = require('body-parser');
 var session = require('express-session')
 var FileStore = require('session-file-store')(session);
 
-app.set('port',  process.env.PORT || 8079);
+app.set('port',  process.env.PORT || 3000);
 app.set('host',  process.env.APP_HOST || 'localhost');
 
 app.use(cors());
