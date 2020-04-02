@@ -10,8 +10,6 @@ router.get('/', async function(req, res, next) {
 	param.class = req.appBaseConfig.class;
 	param.board = req.appBaseConfig.board;
 
-	console.log('param', param);
-
 	try {
 		let booksData = await booksObj.getBooksList(param);
 
