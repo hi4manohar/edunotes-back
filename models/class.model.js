@@ -120,7 +120,7 @@ class classmodel {
 			let sql = `SELECT tt.description, t.name, t.slug FROM wp_term_taxonomy as tt 
 				INNER JOIN wp_terms as t ON t.term_id=tt.term_id WHERE tt.parent IN(
 					SELECT wt.term_id FROM wp_terms as wt WHERE wt.slug='class'
-				)`;
+				) ORDER BY t.term_order ASC`;
 			this.dbinst.query(sql, function (err, result) {
 				if(err) {
 					reject({
