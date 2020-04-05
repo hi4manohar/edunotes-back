@@ -4,7 +4,7 @@ class classmodel {
 		this.dbinst = param.dbinst
 	}
 
-	getClassList() {
+	getSubjectList() {
 		return new Promise((resolve, reject) => {
 			let sql = `SELECT t.name, t.slug, t.term_id, tt.description 
 			FROM wp_term_taxonomy as tt INNER JOIN wp_terms as t 
@@ -13,6 +13,28 @@ class classmodel {
 			)`;
 			this.dbinst.query(sql, function (err, result) {
 				if(err) {
+					reject({
+						status: false,
+						msg: err
+					})
+				} else {
+					resolve({
+						status: true,
+						data: result
+					})
+				}
+			});
+		})
+	}
+
+	getclasslist(param) {
+		return new Promise((resolve, reject) => {
+			let sql = `SELECT tt.description, t.name, t.slug FROM wp_term_taxonomy as tt 
+				INNER JOIN wp_terms as t ON t.term_id=tt.term_id WHERE tt.parent IN(
+					SELECT wt.term_id FROM wp_terms as wt WHERE wt.slug='class'
+				) ORDER BY t.term_order ASC`;
+			this.dbinst.query(sql, function (err, result) {
+				if (err) {
 					reject({
 						status: false,
 						msg: err
@@ -39,9 +61,9 @@ class classmodel {
 			    SELECT object_id FROM wp_term_relationships WHERE term_taxonomy_id IN (
 			        SELECT term_taxonomy_id FROM wp_term_taxonomy WHERE taxonomy = "category" AND term_id IN (
 			            SELECT t.term_id FROM wp_terms t 
-			            WHERE t.slug IN ("${param.class}", "${param.board}", "chapters", '${param.subjectname}')
+			            WHERE t.slug IN ("${param.class}", "${param.board}", "chapters", 'Syllabus', '${param.subjectname}')
 			        )
-			    ) GROUP by(object_id) having COUNT(object_id)=4
+			    ) GROUP by(object_id) having COUNT(object_id)=5
 			)
 			LIMIT 0, 20`;
 			this.dbinst.query(sql, function (err, result) {
@@ -72,9 +94,9 @@ class classmodel {
 			    SELECT object_id FROM wp_term_relationships WHERE term_taxonomy_id IN (
 			        SELECT term_taxonomy_id FROM wp_term_taxonomy WHERE taxonomy IN ("post_tag", "category") AND term_id IN (
 			            SELECT t.term_id FROM wp_terms t 
-			            WHERE t.slug IN ("${param.chaptername}", "chapter-posts")
+			            WHERE t.slug IN ("${param.chaptername}", "chapter-posts", 'syllabus')
 			        )
-			    ) GROUP by(object_id) having COUNT(object_id)=2
+			    ) GROUP by(object_id) having COUNT(object_id)=3
 			)
 			LIMIT 0, 20`;
 			this.dbinst.query(sql, function (err, result) {
@@ -99,28 +121,6 @@ class classmodel {
 				INNER JOIN wp_terms as t ON t.term_id=tt.term_id WHERE tt.parent IN(
 					SELECT wt.term_id FROM wp_terms as wt WHERE wt.slug='board'
 				)`;
-			this.dbinst.query(sql, function (err, result) {
-				if(err) {
-					reject({
-						status: false,
-						msg: err
-					})
-				} else {
-					resolve({
-						status: true,
-						data: result
-					})
-				}
-			});
-		})
-	}
-
-	getclasslist(param) {
-		return new Promise((resolve, reject) => {
-			let sql = `SELECT tt.description, t.name, t.slug FROM wp_term_taxonomy as tt 
-				INNER JOIN wp_terms as t ON t.term_id=tt.term_id WHERE tt.parent IN(
-					SELECT wt.term_id FROM wp_terms as wt WHERE wt.slug='class'
-				) ORDER BY t.term_order ASC`;
 			this.dbinst.query(sql, function (err, result) {
 				if(err) {
 					reject({

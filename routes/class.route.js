@@ -3,12 +3,13 @@ const router = express.Router();
 const { dbinst } = require('../config/index.config');
 const { classModel } = require('../models/index.model');
 
+//get list of all the subjects
 router.get('/get', async function(req, res, next) {
 
 	let classObj = new classModel({dbinst});
 
 	try {
-		let classData = await classObj.getClassList();
+		let classData = await classObj.getSubjectList();
 		console.log(classData);
 		res.status(200).json({
 			status: true,
@@ -23,6 +24,7 @@ router.get('/get', async function(req, res, next) {
 	return res.end();
 })
 
+//get list of all the chapters of that particular subject
 router.get('/get/:subjectname', async function(req, res, next) {
 
 	let classObj = new classModel({dbinst});
@@ -54,6 +56,7 @@ router.get('/get/:subjectname', async function(req, res, next) {
 	res.end();
 })
 
+//get posts of a particular chapter
 router.get('/get/chapters/:chaptername', async function(req, res, next) {
 
 	let param = {};
