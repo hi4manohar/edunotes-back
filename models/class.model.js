@@ -65,7 +65,7 @@ class classmodel {
 			        )
 			    ) GROUP by(object_id) having COUNT(object_id)=5
 			)
-			LIMIT 0, 20`;
+			ORDER BY menu_order ASC LIMIT 0, 20`;
 			this.dbinst.query(sql, function (err, result) {
 				if(err) {
 					reject({
