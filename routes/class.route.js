@@ -10,7 +10,6 @@ router.get('/get', async function(req, res, next) {
 
 	try {
 		let classData = await classObj.getSubjectList();
-		console.log(classData);
 		res.status(200).json({
 			status: true,
 			data: classData.data
