@@ -24,7 +24,7 @@ router.get('/getboardlist', async function(req, res, next) {
 	try {
 		let boardData = await classObj.getboardlist();
 
-		console.log(boardData.data.length);
+		console.log(boardData);
 
 		if( boardData.data.length > 0 ) {
 
@@ -33,13 +33,13 @@ router.get('/getboardlist', async function(req, res, next) {
 				data: boardData.data
 			});
 		} else {
-			console.log('hello');
 			res.status(204).json({
 				status: false,
 				msg: 'No Content Available'
 			})
 		}
 	} catch(err) {
+		console.log(err);
 		res.status(204).json({
 			status: false,
 			msg: err.msg

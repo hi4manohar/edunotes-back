@@ -8,8 +8,12 @@ router.get('/get', async function(req, res, next) {
 
 	let classObj = new classModel({dbinst});
 
+	let param = {};
+	param.class = req.appBaseConfig.class;
+	param.board = req.appBaseConfig.board;
+
 	try {
-		let classData = await classObj.getSubjectList();
+		let classData = await classObj.getSubjectList(param);
 		res.status(200).json({
 			status: true,
 			data: classData.data

@@ -10,11 +10,6 @@ const dbinst = mysql.createPool({
     database: connection.database
 });
 
-dbinst.connect((err) => {
-    if (err) throw err;
-    // console.log('Connected!');
-});
-
 module.exports = {
     dbinst
 }

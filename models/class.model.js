@@ -4,13 +4,27 @@ class classmodel {
 		this.dbinst = param.dbinst
 	}
 
-	getSubjectList() {
+	getSubjectList(param) {
 		return new Promise((resolve, reject) => {
-			let sql = `SELECT t.name, t.slug, t.term_id, tt.description 
-			FROM wp_term_taxonomy as tt INNER JOIN wp_terms as t 
-			on tt.term_id=t.term_id WHERE tt.parent IN (
-			    select term_id from wp_terms where wp_terms.slug='subjects'
+			// let sql = `SELECT t.name, t.slug, t.term_id, tt.description 
+			// FROM wp_term_taxonomy as tt INNER JOIN wp_terms as t 
+			// on tt.term_id=t.term_id WHERE tt.parent IN (
+			//     select term_id from wp_terms where wp_terms.slug='subjects'
+			// )`;
+
+			let sql = `SELECT 
+			wp_posts.post_title as name,
+			wp_posts.post_name as slug from wp_posts
+			WHERE wp_posts.post_type="post" AND 
+				wp_posts.post_status = "publish" AND 
+				wp_posts.ID IN (
+			    SELECT object_id FROM wp_term_relationships WHERE term_taxonomy_id IN (
+			        SELECT term_taxonomy_id FROM wp_term_taxonomy WHERE taxonomy = "category" AND term_id IN (
+			            SELECT t.term_id FROM wp_terms t WHERE t.slug IN ("${param.class}", "${param.board}", "subjects-list", 'Syllabus')
+			        )
+			    ) GROUP by(object_id) having COUNT(object_id)=4
 			)`;
+
 			this.dbinst.query(sql, function (err, result) {
 				if(err) {
 					reject({
