@@ -2,7 +2,8 @@ const mysql = require('mysql')
 const { connection } = require('./db.config')
 const { expressConfig } = require('./express.config')
 
-const dbinst = mysql.createConnection({
+const dbinst = mysql.createPool({
+    connectionLimit: 10,
     host: connection.host,
     user: connection.user,
     password: connection.password,
