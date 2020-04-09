@@ -8,9 +8,9 @@ router.get('/getwelcome', async function(req, res, next) {
 	res.status(200).json({
 		status: true,
 		data: [
-			{ src: 'uploads/static/images/slider1.jpg' },
-			{ src: 'uploads/static/images/slider1.jpg' },
-			{ src: 'uploads/static/images/slider1.jpg' }
+			{ src: 'uploads/static/images/slider/slider1.png' },
+			{ src: 'uploads/static/images/slider/slider2.png' },
+			{ src: 'uploads/static/images/slider/slider3.png' }
 		]
 	});
 
