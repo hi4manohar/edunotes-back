@@ -8,9 +8,16 @@ router.get('/getwelcome', async function(req, res, next) {
 	res.status(200).json({
 		status: true,
 		data: [
-			{ src: 'uploads/static/images/slider/slider1.png' },
-			{ src: 'uploads/static/images/slider/slider2.png' },
-			{ src: 'uploads/static/images/slider/slider3.png' }
+			{ src: 'uploads/static/images/slider/slider1.png',
+				title: 'Prepare Effectively', 
+				subtitle: `Studying at ease everywhere, 
+					We keep you moving by having every board books in Your smartphone.` },
+			{ src: 'uploads/static/images/slider/slider2.png',
+				title: 'Self Learning Material',
+				subtitle: `Easy and meaningful content help you to understand topic at your pace` },
+			{ src: 'uploads/static/images/slider/slider3.png',
+				title: 'Quick Reference App',
+				subtitle: `We help you to quick find explanation about any topic at our digital platform` }
 		]
 	});
 
