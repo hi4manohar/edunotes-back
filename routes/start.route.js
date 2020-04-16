@@ -30,7 +30,7 @@ router.get('/app_details', async function(req, res, next) {
 		status: true,
 		data: {
 			published_app_version: '1.0.1',
-			maintanance_mode: false
+			maintanance_mode: true
 		}
 	});
 	return res.end();

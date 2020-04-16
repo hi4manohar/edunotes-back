@@ -92,17 +92,6 @@ class books {
 
 		return new Promise((resolve, reject) => {
 
-			// let sql = `SELECT p.*, CASE WHEN p1.guid IS NULL THEN p.guid ELSE p1.guid END as reflink from wp_posts as p 
-
-			// LEFT JOIN wp_postmeta as pm ON 
-			// 	p.ID=pm.post_id AND pm.meta_key='_thumbnail_id'
-			// LEFT JOIN wp_posts as p1 ON
-			// 	pm.meta_value=p1.ID
-
-			// WHERE p.post_status IN('publish', 'inherit') AND 
-			// p.post_type IN('post', 'attachment') AND 
-			// (p.ID='${params.bookid}' OR p.post_parent='${params.bookid}')`;
-
 			let selectList = [
 				'p.ID',
 				'p.post_author',
@@ -148,7 +137,8 @@ class books {
 			WHERE
 				p.post_status IN('publish', 'inherit')
 				AND p.post_type IN('attachment')
-				AND (p.post_parent = '${params.bookid}')`;
+				AND (p.post_parent = '${params.bookid}') 
+				ORDER BY menu_order, post_date ASC`;
 
 			this.dbinst.query(sql, function (err, result) {
 				if(err) {
