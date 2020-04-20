@@ -3,6 +3,40 @@ const router = express.Router();
 const { dbinst } = require('../config/index.config');
 const { classModel } = require('../models/index.model');
 
+router.get('/sendpushnotification', function(req, res) {
+	var admin = require("firebase-admin");
+	
+	var payload = {
+		"data": {
+			"title": "New eBooks Uploaded",
+			"body": "Bihard Board 12th Class eBooks has been uploaded",
+			"notId": "1",
+			"surveyID": "ewtawgreg-gragrag-rgarhthgbad",
+			"to": '/dkjfdj'
+		},
+		topic: 'android'
+	};
+
+	var serviceAccount = require("../config/edunotes-cloud-message-firebase-adminsdk-v4isv-815d31504a.json");
+
+	admin.initializeApp({
+		credential: admin.credential.cert(serviceAccount),
+		databaseURL: "https://edunotes-cloud-message.firebaseio.com"
+	});
+
+	admin.messaging().send(payload)
+		.then(function (response) {
+			console.log("Successfully sent message:", response);
+
+			res.end();
+			
+		})
+		.catch(function (error) {
+			console.log("Error sending message:", error);
+			res.end();
+		});
+})
+
 router.get('/getwelcome', async function(req, res, next) {
 
 	res.status(200).json({

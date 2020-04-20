@@ -69,9 +69,7 @@ class books {
 			(object_id)
 					having
 						COUNT(object_id) = 3
-				)
-			LIMIT
-				0, 20`;
+				)`;
 			this.dbinst.query(sql, function (err, result) {
 				if(err) {
 					reject({

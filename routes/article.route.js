@@ -11,6 +11,8 @@ router.get('/', async function(req, res, next) {
 	param.page = req.query.page ? (req.query.page) * 20 : 0;
 	param.offset = 20;
 
+	param.category = (req.query.category) ? req.query.category.trim() : 'blog';
+
 	try {
 		let articleData = await articleObj.getArticleList(param);
 		res.json({
