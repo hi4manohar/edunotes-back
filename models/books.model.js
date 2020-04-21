@@ -136,7 +136,7 @@ class books {
 				p.post_status IN('publish', 'inherit')
 				AND p.post_type IN('attachment')
 				AND (p.post_parent = '${params.bookid}') 
-				ORDER BY menu_order, post_date ASC`;
+				ORDER BY post_date ASC`;
 
 			this.dbinst.query(sql, function (err, result) {
 				if(err) {
