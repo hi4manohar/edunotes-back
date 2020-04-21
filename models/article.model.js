@@ -18,8 +18,10 @@ class article {
 				wp_posts.post_type,
 				wp_posts.post_mime_type,
 				CONCAT(
-					'https://s3.amazonaws.com/edunotes-media/',
-					s3t.path
+					'https://s3.amazonaws.com/edunotes-media/',					
+					SUBSTRING(s3t.path, 1, CHAR_LENGTH(s3t.path)-4),
+					'-150x150',
+					SUBSTRING(s3t.path, CHAR_LENGTH(s3t.path)-3, 4)
 				) as guid FROM wp_posts 
 			LEFT JOIN wp_postmeta as pm ON 
 				wp_posts.ID=pm.post_id AND pm.meta_key='_thumbnail_id'

@@ -10,7 +10,7 @@ router.get('/sendpushnotification', function(req, res) {
 		"data": {
 			"title": "New eBooks Uploaded",
 			"body": "Bihard Board 12th Class eBooks has been uploaded",
-			"notId": "1",
+			"notId": "100",
 			"surveyID": "ewtawgreg-gragrag-rgarhthgbad",
 			"to": '/dkjfdj'
 		},

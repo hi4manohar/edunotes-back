@@ -48,7 +48,6 @@ class answers {
                     )
                 ) GROUP by (object_id) having COUNT(object_id) = ${slugToMatch.length}
             ) GROUP by(ID) LIMIT ${param.page}, ${param.offset}`;
-            console.log(sql);
             this.dbinst.query(sql, function (err, result) {
                 if (err) {
                     reject({
