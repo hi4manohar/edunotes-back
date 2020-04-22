@@ -35,7 +35,7 @@ class article {
 			        )
 			    )
 			)
-			LIMIT ${param.page}, ${param.offset}`;
+			ORDER BY post_date DESC LIMIT ${param.page}, ${param.offset}`;
 			this.dbinst.query(sql, function (err, result) {
 				if(err) {
 					reject({

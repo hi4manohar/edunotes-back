@@ -8,11 +8,11 @@ router.get('/sendpushnotification', function(req, res) {
 	
 	var payload = {
 		"data": {
-			"title": "New eBooks Uploaded",
+			"title": "New 12th Class PDF Updated",
 			"body": "Bihard Board 12th Class eBooks has been uploaded",
-			"notId": "100",
+			"notId": "1",
 			"surveyID": "ewtawgreg-gragrag-rgarhthgbad",
-			"to": '/dkjfdj'
+			"to": '/question'
 		},
 		topic: 'android'
 	};
