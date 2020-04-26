@@ -16,6 +16,7 @@ class article {
 				wp_posts.post_name,
 				wp_posts.menu_order,
 				wp_posts.post_type,
+				wp_posts.guid as post_guid,
 				wp_posts.post_mime_type,
 				CONCAT(
 					'https://s3.amazonaws.com/edunotes-media/',					

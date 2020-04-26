@@ -8,9 +8,9 @@ router.get('/sendpushnotification', function(req, res) {
 	
 	var payload = {
 		"data": {
-			"title": "New 12th Class PDF Updated",
-			"body": "Bihard Board 12th Class eBooks has been uploaded",
-			"notId": "1",
+			"title": "Bihar Board Book Update",
+			"body": "Bihar Board 10th Book updates",
+			"notId": "3",
 			"surveyID": "ewtawgreg-gragrag-rgarhthgbad",
 			"to": '/question'
 		},
