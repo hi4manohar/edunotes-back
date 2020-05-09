@@ -23,3 +23,7 @@ blockquote p {
     -webkit-box-orient: vertical;
     display: -webkit-box;
 }
+
+.CategoryArticle.v-application .subtitle-2 {
+	font-weight: bold;
+}

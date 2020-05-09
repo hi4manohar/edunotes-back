@@ -1,6 +1,6 @@
 module.exports = {
     connection: {
-        host: '54.224.119.94',
+        host: '52.207.154.16',
         user: 'root',
         password: 'manoharkjde2434738',
         database: 'edunotes-admin',
