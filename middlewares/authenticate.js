@@ -18,7 +18,7 @@ module.exports = (req, res, next) => {
             if (err) {
                 res.json({
                     status: false,
-                    msg: 'Unauthorized user'
+                    msg: 'Unauthorized user, Kindly Change Your Board or Class'
                 }); return res.end();
             } else {
                 req.decodedToken = decoded;
