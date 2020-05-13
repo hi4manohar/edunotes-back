@@ -8,11 +8,12 @@ router.get('/sendpushnotification', function(req, res) {
 	
 	var payload = {
 		"data": {
-			"title": "Bihar Board Book Update",
-			"body": "Bihar Board 10th Book updates",
-			"notId": "3",
+			"title": "Class 10 Science Quiz Ready",
+			"body": "Test yourself with class 10 science quiz",
+			"notId": "12",
 			"surveyID": "ewtawgreg-gragrag-rgarhthgbad",
-			"to": '/question'
+			"to": '/content/quizzes?listype=grid',
+			'image': 'https://www.fresherscode.com/edunotes-admin/wp-content/uploads/2020/04/study-1.jpg'
 		},
 		topic: 'android'
 	};
