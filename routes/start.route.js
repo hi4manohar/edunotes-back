@@ -3,20 +3,30 @@ const router = express.Router();
 const { dbinst } = require('../config/index.config');
 const { classModel } = require('../models/index.model');
 
-router.get('/sendpushnotification', function(req, res) {
+router.post('/sendpushnotification', function(req, res) {
 	var admin = require("firebase-admin");
+
+	if( req.body.title && req.body.body && req.body.topic ) {
+
+	} else {
+		return res.json({
+			status: false,
+			msg: 'Incorrect data'
+		});
+	}
 	
 	var payload = {
 		"data": {
-			"title": "Class 10 Science Quiz Ready",
-			"body": "Test yourself with class 10 science quiz",
-			"notId": "12",
-			"surveyID": "ewtawgreg-gragrag-rgarhthgbad",
-			"to": '/content/quizzes?listype=grid',
-			'image': 'https://www.fresherscode.com/edunotes-admin/wp-content/uploads/2020/04/study-1.jpg'
+			"title": req.body.title.trim(),
+			"body": req.body.body.trim()
 		},
-		topic: 'android'
+		topic: req.body.topic.trim()
 	};
+
+	payload.data.notId = req.body.id ? req.body.id.trim() : '';
+	payload.data.to = req.body.to ? req.body.to.trim() : '';
+	payload.data.surveyID = req.body.sid ? req.body.sid.trim() : '';
+	payload.data.image = req.body.image ? req.body.image.trim() : '';
 
 	var serviceAccount = require("../config/edunotes-cloud-message-firebase-adminsdk-v4isv-815d31504a.json");
 
@@ -29,11 +39,20 @@ router.get('/sendpushnotification', function(req, res) {
 		.then(function (response) {
 			console.log("Successfully sent message:", response);
 
+			res.json({
+				status: true,
+				msg: 'Message has been sent'
+			});
+
 			res.end();
 			
 		})
 		.catch(function (error) {
 			console.log("Error sending message:", error);
+			res.json({
+				status: false,
+				msg: error
+			});
 			res.end();
 		});
 })

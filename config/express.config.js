@@ -10,7 +10,9 @@ app.set('host',  process.env.APP_HOST || 'localhost');
 
 app.use(cors());
 
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(bodyParser.raw());
 
 //session
 app.use(session({
