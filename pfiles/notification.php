@@ -106,7 +106,7 @@ $("#fromapi").submit(function(e) {
 		$("#error_message").html("").hide();
 		$.ajax({
 			type: "POST",
-			url: "http://localhost:3000/api/start/sendpushnotification",
+			url: "/api/start/sendpushnotification",
 			data: {
 				 "title" : title,
          "body" : body,
