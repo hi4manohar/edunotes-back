@@ -18,6 +18,7 @@ class article {
 				wp_posts.post_type,
 				wp_posts.guid as post_guid,
 				wp_posts.post_mime_type,
+				CONCAT('{', GROUP_CONCAT(CONCAT(pm.meta_key, ':', pm.meta_value) ), '}') as postmeta,
 				CONCAT(
 					'https://s3.amazonaws.com/edunotes-media/',					
 					SUBSTRING(s3t.path, 1, CHAR_LENGTH(s3t.path)-4),
@@ -26,7 +27,7 @@ class article {
 				) as guid FROM wp_posts 
 			LEFT JOIN wp_postmeta as pm ON 
 				wp_posts.ID=pm.post_id AND pm.meta_key='_thumbnail_id'
-			LEFT JOIN wp_as3cf_items as s3t ON 
+			LEFT JOIN wp_as3cf_items as s3t ON  	
 					pm.meta_value = s3t.source_id
 
 			WHERE wp_posts.post_type="post" AND wp_posts.post_status = "publish" AND wp_posts.ID IN (
@@ -36,6 +37,7 @@ class article {
 			        )
 			    )
 			)
+			GROUP BY wp_posts.ID 
 			ORDER BY post_date DESC LIMIT ${param.page}, ${param.offset}`;
 			this.dbinst.query(sql, function (err, result) {
 				if(err) {

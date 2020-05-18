@@ -87,7 +87,7 @@ body{width:50%;min-width:200px;font-family:arial; margin-left: 200px;}
 	<div id="success_message" class="ajax_response" style="float:left;color: red"></div>
 </form>
 
-<script src="http://code.jquery.com/jquery-1.10.2.js"></script>			
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>	
 <script>
 $("#fromapi").submit(function(e) {
 

@@ -16,7 +16,7 @@ module.exports = (req, res, next) => {
     if (token) {
         jwt.verify(token, 'manohar@rtf', (err, decoded) => {
             if (err) {
-                res.status(401).json({
+                res.status(440).json({
                     status: false,
                     msg: 'Unauthorized user, Kindly Change Your Board or Class'
                 }); return res.end();
