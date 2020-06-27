@@ -26,14 +26,11 @@ class answers {
                     wp_posts.post_mime_type,
                     GROUP_CONCAT(wtr.term_taxonomy_id) as txids, 
                     GROUP_CONCAT(t.name) as tags,
-                    CONCAT(
-                        'https://s3.amazonaws.com/edunotes-media/',      
-                        s3t.path
-                    ) as guid FROM wp_posts
+                    p11.guid FROM wp_posts
             LEFT JOIN wp_postmeta as pm ON
                     wp_posts.ID=pm.post_id AND pm.meta_key='_thumbnail_id'   
-            LEFT JOIN wp_as3cf_items as s3t ON
-                            pm.meta_value = s3t.source_id
+            LEFT JOIN wp_posts as p11 ON
+                            pm.meta_value = p11.ID
             LEFT JOIN wp_term_relationships as wtr ON
                         wtr.object_id=wp_posts.ID LEFT JOIN wp_term_taxonomy as tt ON
                         (tt.term_id=wtr.term_taxonomy_id and tt.taxonomy="post_tag") 

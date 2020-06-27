@@ -31,15 +31,12 @@ class books {
 				wp_posts.menu_order,
 				wp_posts.post_type,
 				wp_posts.post_mime_type,
-				CONCAT(
-					'https://s3.amazonaws.com/edunotes-media/',
-					s3t.path
-				) as guid
+				p11.guid
 			FROM
 				wp_posts
 				LEFT JOIN wp_postmeta as pm ON wp_posts.ID = pm.post_id
 				AND pm.meta_key = '_thumbnail_id'
-				LEFT JOIN wp_as3cf_items as s3t ON pm.meta_value = s3t.source_id
+				LEFT JOIN wp_posts as p11 ON pm.meta_value = p11.ID
 			WHERE
 				wp_posts.post_type = "post"
 				AND wp_posts.post_status = "publish"
@@ -104,17 +101,14 @@ class books {
 			];
 
 			let sql = ` SELECT ${selectList.join()},
-				CONCAT(
-					'https://s3.amazonaws.com/edunotes-media/',
-					s3t.path
-				) as reflink
+				p11.guid as reflink
 			from
 				wp_posts as p
 				LEFT JOIN wp_postmeta as pm ON 
 						p.ID=pm.post_id AND pm.meta_key='_thumbnail_id'
 				LEFT JOIN wp_posts as p1 ON
 						pm.meta_value=p1.ID
-				LEFT JOIN wp_as3cf_items as s3t ON p1.ID = s3t.source_id
+				LEFT JOIN wp_posts as p11 ON p1.ID = p11.ID
 				
 			WHERE
 				p.post_status IN('publish')
@@ -125,13 +119,10 @@ class books {
 
 			SELECT
 				${selectList.join()},
-				CONCAT(
-					'https://s3.amazonaws.com/edunotes-media/',
-					s3t.path
-				) as reflink
+				p12.ID as reflink
 			from
 				wp_posts as p
-				LEFT JOIN wp_as3cf_items as s3t ON p.ID = s3t.source_id
+				LEFT JOIN wp_posts as p12 ON p.ID = p12.ID
 			WHERE
 				p.post_status IN('publish', 'inherit')
 				AND p.post_type IN('attachment')

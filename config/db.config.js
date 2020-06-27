@@ -1,8 +1,8 @@
 module.exports = {
     connection: {
-        host: 'fresherscode.com',
-        user: 'root',
-        password: 'manoharkjde2434738',
+        host: 'localhost',
+        user: 'edunotes-admin',
+        password: 'VEfYoJ1QnzLFXwoc',
         database: 'edunotes-admin',
     }
 };
