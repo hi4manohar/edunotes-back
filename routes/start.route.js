@@ -83,7 +83,7 @@ router.get('/app_details', async function(req, res, next) {
 	res.status(200).json({
 		status: true,
 		data: {
-			published_app_version: '1.0.7',
+			published_app_version: '1.0.9',
 			maintanance_mode: false
 		}
 	});
