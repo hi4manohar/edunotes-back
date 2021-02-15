@@ -30,10 +30,14 @@ router.post('/sendpushnotification', function(req, res) {
 
 	var serviceAccount = require("../config/edunotes-cloud-message-firebase-adminsdk-v4isv-815d31504a.json");
 
-	admin.initializeApp({
-		credential: admin.credential.cert(serviceAccount),
-		databaseURL: "https://edunotes-cloud-message.firebaseio.com"
-	});
+	if (!admin.apps.length) {
+		admin.initializeApp({
+			credential: admin.credential.cert(serviceAccount),
+			databaseURL: "https://edunotes-cloud-message.firebaseio.com"
+		});
+	} else {
+		admin.app(); // if already initialized, use that one
+	}
 
 	admin.messaging().send(payload)
 		.then(function (response) {
@@ -83,7 +87,7 @@ router.get('/app_details', async function(req, res, next) {
 	res.status(200).json({
 		status: true,
 		data: {
-			published_app_version: '1.0.7',
+			published_app_version: '1.0.9',
 			maintanance_mode: false
 		}
 	});
