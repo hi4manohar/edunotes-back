@@ -119,7 +119,7 @@ class books {
 
 			SELECT
 				${selectList.join()},
-				p12.ID as reflink
+				p12.guid as reflink
 			from
 				wp_posts as p
 				LEFT JOIN wp_posts as p12 ON p.ID = p12.ID
